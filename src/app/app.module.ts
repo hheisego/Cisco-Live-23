@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BasichartComponent } from './components/basichart/basichart.component';
+import { BasicgraphComponent } from './components/basicgraph/basicgraph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    BasichartComponent,
+    BasicgraphComponent
   ],
   imports: [
     BrowserModule,
