@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 
-<div class="container-fluid"><p>simon</p>
-<app-basicgraph></app-basicgraph>
+<div class="container-fluid">
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        data-placement="top" (click)="mission()">Request a new Report</button>
+<app-basicgraph *ngIf="task" ></app-basicgraph>
 </div>
