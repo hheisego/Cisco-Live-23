@@ -9,91 +9,59 @@ import Chart from 'chart.js/auto';
 })
 
 
-export class BasicgraphComponent implements OnInit{
+export class BasicgraphComponent {
 
   @ViewChild('chart2') private chartRef!: ElementRef;
   private chart!: Chart;
 
-  
+  reportsResponse: any;
 
-  constructor(private service: GenericService,
-
-  ) { }
-
-  ngOnInit(): void {
-
-
-  }
+  constructor(private service: GenericService) { }
 
   ngAfterViewInit(): void {
-
-    this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['CO2', 'CO2', 'CO2', 'CO2', 'CO2', 'CO2', 'co2'],
-        datasets: [{
-          label: 'Nirt',
-          data: [12, 19, 3, 5, 2, 3, 7],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
+    this.service.getReport().subscribe(res => {
+      this.reportsResponse = res;
+      console.log(this.reportsResponse)
+      this.chart = new Chart(this.chartRef.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: ['Co2', 'Humidity', 'Pressure', 'Temperature'],
+          datasets: [{
+            label: 'GrowFlux',
+            data: [this.reportsResponse.CO2, this.reportsResponse.humidity, this.reportsResponse.pressure, this.reportsResponse.temperature,],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 2
+          }]
         },
-        {
-          label: 'Home Office',
-          data: [5, 7, 10, 8, 3, 9, 6],
-          backgroundColor: [
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 159, 64, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        animation: {
-          duration: 2000,
-          easing: "easeInOutQuart"
-        },
-        scales: {
-          y: {
-            beginAtZero: true
+        options: {
+          animation: {
+            duration: 2000,
+            easing: "easeInOutQuart"
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
-
-
+      });
+    }); // Added closing parenthesis
   }
 }
-
-
-
